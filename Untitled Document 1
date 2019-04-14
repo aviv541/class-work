@@ -1,0 +1,14 @@
+node {
+   def mvnHome
+   stage('Preparation') { 
+      git 'http://github.com/aviv541/class-work.git'
+   }
+   stage('Build') {
+      mvnHome = tool(name: '3.6.0' ,type: 'maven')
+      sh "'${mvnHome}/bin/mvn' clean package"
+   }
+   stage('Deploy') {
+      sh 'cp web/target/*.war /usr/share/tomcat/webapps/'
+      
+   }
+}
